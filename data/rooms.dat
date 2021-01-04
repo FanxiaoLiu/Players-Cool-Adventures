@@ -1,0 +1,36 @@
+Room Name: Room 1
+Room Description:  This is Room 1
+Exit Rooms: S-Room 2, E-Room 3, D-Room 9, W-Death 1
+Room Name: Room 2
+Room Description:  This is Room 2
+Exit Rooms: N-Room 1, S-Room 6
+Room Name: Death 1
+Room Description:  You are upstairs.
+Exit Rooms: E-Room 1
+Room Name: Room 3
+Room Description:  This is Room 3
+Exit Rooms: W-Room 1, E-Room 4, S-Death 2
+Room Name: Room 4
+Room Description:  This is Room 4
+Exit Rooms: W-Room 3, S-Room 5, E-Treasure 1
+Room Name: Death 2
+Room Description:  This is a death room
+Exit Rooms: N-Room 3
+Room Name: Treasure 1
+Room Description:  This is a treasure room.
+Exit Rooms: W-Room 4, S-Room 8
+Room Name: Room 5
+Room Description:  This is room 5
+Exit Rooms: N-Room 4, E-Room 8, S-Room 7
+Room Name: Room 6
+Room Description:  This is room 6
+Exit Rooms: N-Room 2, E-TreasureGuards 1
+Room Name: Room 7
+Room Description:  This is room 7
+Exit Rooms: N-Room 5, W-TreasureGuards 1
+Room Name: TreasureGuards 1
+Room Description:  This is a treasure room with guards
+Exit Rooms: W-Room 6, E-Room 7
+Room Name: Room 8
+Room Description:  This is room 8
+Exit Rooms: N-Treasure 1, W-Room 5
