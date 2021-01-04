@@ -124,8 +124,8 @@ public class Game {
       Player.refreshStats();
       Player.setBeginningHP();
       giveItemsToPlayer();
-      createMonsters("data/monsters.dat");
-      initRooms("data/rooms.dat");
+      createMonsters("Players-Cool-Adventures/data/monsters.dat");
+      initRooms("Players-Cool-Adventures/data/rooms.dat");
       currentRoom = masterRoomMap.get("ROOM_1");
     } catch (Exception e) {
       // TODO Auto-generated catch block
@@ -158,7 +158,7 @@ public class Game {
         monsterList.add(monster);
         monsterAssignRoom.add(assignedRoom);
       }
-      initializeItems("data/items.dat");
+      initializeItems("Players-Cool-Adventures/data/items.dat");
       int i = 0;
       int j = 0;
       while (j<monsterItemsList.size()) {
