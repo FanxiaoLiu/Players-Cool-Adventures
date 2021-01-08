@@ -64,3 +64,6 @@ Exit Rooms: W-Room 12, S-Room 15
 Room Name: Room 15
 Room Description:  This is room 15
 Exit Rooms: N-Room 14
+Room Name: FinalRoom 1
+Room Description: This is the final room. Come here when you have the Fancy and Luxurious Treasures.
+Exit Rooms: W-TreasureGuards 3
