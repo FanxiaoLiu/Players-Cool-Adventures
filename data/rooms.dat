@@ -34,3 +34,33 @@ Exit Rooms: W-Room 6, E-Room 7
 Room Name: Room 8
 Room Description:  This is room 8
 Exit Rooms: N-Treasure 1, W-Room 5
+Room Name: Room 9
+Room Description:  This is room 9
+Exit Rooms: U-Room 1, W-Room 11, E-Room 12, S-Room 10
+Room Name: Room 10
+Room Description:  This is room 10
+Exit Rooms: N-Room 9, E-Death 3
+Room Name: Room 11
+Room Description:  This is room 11
+Exit Rooms: S-Room 13, E-Room 9
+Room Name: Room 13
+Room Description:  This is room 13
+Exit Rooms: N-Room 11, W-TreasureGuards 2
+Room Name: TreasureGuards 2
+Room Description:  This is another room with Guards
+Exit Rooms: E-Room 13
+Room Name: Room 16
+Room Description:  This is room 16
+Exit Rooms: N-Room 13, E-TreasureGuards 3
+Room Name: TreasureGuards 3
+Room Description:  This is another treasure room with guards
+Exit Rooms: W-Room 16, E-FinalRoom 1
+Room Name: Room 12
+Room Description:  This is room 12
+Exit Rooms: W-Room 9, E-Room 14
+Room Name: Room 14
+Room Description:  This is room 14
+Exit Rooms: W-Room 12, S-Room 15
+Room Name: Room 15
+Room Description:  This is room 15
+Exit Rooms: N-Room 14
