@@ -31,6 +31,7 @@ public class Game {
   private ArrayList<Integer> itemAssignMonster = new ArrayList<Integer>();
   private ArrayList<Integer> itemAssignRoom = new ArrayList<Integer>();
   private ArrayList<Integer> monsterAssignRoom = new ArrayList<Integer>();
+  private ArrayList<String> keyArray = new ArrayList<String>();
 
   // This is a MASTER object that contains all of the rooms and is easily
   // accessible.
@@ -80,6 +81,7 @@ public class Game {
             break;
           }
         }
+        int i = 0;
         // An array of strings in the format E-RoomName
         String[] rooms = roomExits.split(":")[1].split(",");
         HashMap<String, String> temp = new HashMap<String, String>();
@@ -91,6 +93,7 @@ public class Game {
 
         // This puts the room we created (Without the exits in the masterMap)
         masterRoomMap.put(roomName.toUpperCase().substring(10).trim().replaceAll(" ", "_"), room);
+        keyArray.add(roomName.toUpperCase().substring(10).trim().replaceAll(" ", "_"));
 
         // Now we better set the exits.
 
@@ -127,11 +130,30 @@ public class Game {
       createMonsters("Players-Cool-Adventures/data/monsters.dat");
       initRooms("Players-Cool-Adventures/data/rooms.dat");
       currentRoom = masterRoomMap.get("ROOM_1");
+      putWinTreasure();
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
     parser = new Parser();
+  }
+
+  private void putWinTreasure() {
+    Items winTreasure1 = new Items(1000, 0, "Fancy Treasure", 0,0,0,0,0);
+    Items winTreasure2 = new Items(1000, 0, "Luxurious Treasure", 0,0,0,0,0);
+    int i = 0;
+    while (i<2) {
+      int random = (int)(Math.random() * (keyArray.size()-1));
+      for (int j = 0; j<keyArray.size()-1; j++) {
+        if (j == random && i == 0) {
+          masterRoomMap.get(keyArray.get(j)).addItemsToInventory(winTreasure1);;
+        }
+        else if (j == random && i == 1) {
+          masterRoomMap.get(keyArray.get(j)).addItemsToInventory(winTreasure2);;
+        }
+      }
+      i++;
+    }
   }
 
   public void giveItemsToPlayer() {
@@ -242,10 +264,15 @@ public class Game {
 
     boolean finished = false;
     while (!finished) {
+      doesWin();
       Command command = parser.getCommand();
       finished = processCommand(command);
     }
     System.out.println("Thank you for playing.  Good bye.");
+  }
+
+  private void doesWin() {
+    // Determine if player can win right now
   }
 
   /**
