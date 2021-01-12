@@ -45,7 +45,7 @@ Room Description:  This is room 11
 Exit Rooms: S-Room 13, E-Room 9
 Room Name: Room 13
 Room Description:  This is room 13
-Exit Rooms: N-Room 11, W-TreasureGuards 2
+Exit Rooms: N-Room 11, W-TreasureGuards 2, S-Room 16
 Room Name: TreasureGuards 2
 Room Description:  This is another room with Guards
 Exit Rooms: E-Room 13
