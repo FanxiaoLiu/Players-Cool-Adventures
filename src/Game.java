@@ -32,6 +32,8 @@ public class Game {
   private ArrayList<Integer> itemAssignRoom = new ArrayList<Integer>();
   private ArrayList<Integer> monsterAssignRoom = new ArrayList<Integer>();
   private ArrayList<String> keyArray = new ArrayList<String>();
+  private String winRoom1 = "";
+  private String winRoom2 = "";
 
   // This is a MASTER object that contains all of the rooms and is easily
   // accessible.
@@ -146,10 +148,12 @@ public class Game {
       int random = (int)(Math.random() * (keyArray.size()-1));
       for (int j = 0; j<keyArray.size()-1; j++) {
         if (j == random && i == 0) {
-          masterRoomMap.get(keyArray.get(j)).addItemsToInventory(winTreasure1);;
+          masterRoomMap.get(keyArray.get(j)).addItemsToInventory(winTreasure1);
+          winRoom1 = keyArray.get(j);
         }
         else if (j == random && i == 1) {
-          masterRoomMap.get(keyArray.get(j)).addItemsToInventory(winTreasure2);;
+          masterRoomMap.get(keyArray.get(j)).addItemsToInventory(winTreasure2);
+          winRoom2 = keyArray.get(j);
         }
       }
       i++;
@@ -264,15 +268,32 @@ public class Game {
 
     boolean finished = false;
     while (!finished) {
-      doesWin();
+      if (doesWin()) {
+        break;
+      }
       Command command = parser.getCommand();
       finished = processCommand(command);
     }
     System.out.println("Thank you for playing.  Good bye.");
   }
 
-  private void doesWin() {
-    // Determine if player can win right now
+  private Boolean doesWin() {
+    if (currentRoom.equals(masterRoomMap.get(keyArray.get(keyArray.size()-1)))) {
+      int count = 0;
+      for (int i = 0; i<Player.getNumberofItemsinInventory(); i++) {
+        if (Player.getItemInInventory(i).getIDTag().equals(1000)) {
+          count++;
+        }
+      }
+      if (count == 1) {
+        System.out.println("You have 1/2 of the treasures needed to win.");
+      }
+      else if (count == 2) {
+        System.out.println("Congratulations! You have 2/2 of the treasures you need to win! You win!");
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
