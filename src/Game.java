@@ -24,7 +24,7 @@ import java.util.Map.Entry;
 public class Game {
   private Parser parser;
   private Room currentRoom;
-  private Character Player = new Character("Shtayo",200,10000,0,30,30);
+  private Character Player;
   private ArrayList<Character> monsterList = new ArrayList<Character>();
   private ArrayList<Items> monsterItemsList = new ArrayList<Items>();
   private ArrayList<Items> roomItemsList = new ArrayList<Items>();
@@ -126,6 +126,7 @@ public class Game {
    */
   public Game() {
     try {
+      Player = new Character("Shtayo",200,10000,0,30,30);
       Player.refreshStats();
       Player.setBeginningHP();
       giveItemsToPlayer();
@@ -301,8 +302,8 @@ public class Game {
    */
   private void printWelcome() {
     System.out.println();
-    System.out.println("Welcome to Zork!");
-    System.out.println("Zork is a new, incredibly boring adventure game.");
+    System.out.println("Welcome to Player's Cool Adventures!");
+    System.out.println("A new text-based adventure game.");
     System.out.println("Type 'help' if you need help.");
     System.out.println();
     System.out.println(currentRoom.longDescription());
@@ -328,9 +329,10 @@ public class Game {
         System.out.println("Quit what?");
       else
         return true; // signal that we want to quit
-    } else if (commandWord.equals("eat")) {
-      System.out.println("Do you really think you should be eating at a time like this?");
     }
+    // views the inventory of the player. Player can select an index and indicate whether or not they want to drop that item.
+    // Catches the NumberFormatException Exception and also when player does not enter the correct word.
+    // If there are no items in inventory, don't view.
     else if (commandWord.equals("viewinventory")){
       if (Player.getNumberofItemsinInventory() > 0) {  
         int count = -1;
@@ -400,6 +402,10 @@ public class Game {
         System.out.println("You sigh as you stare at your empty bag. You take some dirt from the ground and stuff it in there. It falls out somehow.");
       }
     }
+    // Given the player and a monster, the player fights with the monster.
+    // First list the stats of each character out, and confirms whether or not player wants to fight.
+    // if player chooses to fight, relay back to fight method
+    // If there is nothing to fight, nothing happens and the player loses 10hP.
     else if (commandWord.equals("fight")) {
       if (currentRoom.monsterPresent()) {
         System.out.println(Player.getName() + " will be fighting " + currentRoom.getMonsterFromRoom(0).getName() + ".");
@@ -432,6 +438,7 @@ public class Game {
         }
         if (fightChoiceBool) {
           fight(currentRoom.getMonsterFromRoom(0),Player);
+          currentRoom.removeMonsterFromRoom(0);
         }
         else {
           System.out.println("You shamefully ran away.");
@@ -442,6 +449,7 @@ public class Game {
         Player.hurtCharacter(10);
       }
     }
+    // Check if the player has remaining heals, if he does refer to the healCharacter method in Characters class
     else if (commandWord.equals("heal")) {
       if (Player.returnHealChances() > 0) {
         Player.healCharacter();
@@ -450,6 +458,13 @@ public class Game {
         System.out.println("You have no more heals left. I did tell you to use them wisely. Tsk tsk. You can either fight something and defeat it to get an extra five heals, or give up, your choice.");
       }
     }
+    // picks up items in the room
+    // Displays all items with index
+    // Enter index number if they want to learn more about item
+      // Displays Stats
+    // Enter pickup if they want to pickup
+      // Picks up the item and puts it into player inventory
+      // Refreshes stats after
     else if (commandWord.equals("pickup")) {
       if (currentRoom.itemPresent()) {
         int count = -1;
@@ -523,6 +538,7 @@ public class Game {
         Player.hurtCharacter(10);
       }
     }
+    // An alternative to the fight command
     else if (commandWord.equals("scream")) {
       System.out.println("You scream and attract the attention of nearby monsters.");
       if (currentRoom.monsterPresent()) {
@@ -556,6 +572,7 @@ public class Game {
         }
         if (fightChoiceBool) {
           fight(currentRoom.getMonsterFromRoom(0),Player);
+          currentRoom.removeMonsterFromRoom(0);
         }
         else {
           System.out.println("You shamefully ran away.");
@@ -565,6 +582,7 @@ public class Game {
         System.out.println("You realize the monster was just a spider. You squish it. You feel better about yourself.");
       }
     }
+    // View player's current stats and displays them as a list
     else if (commandWord.equals("viewstats")) {
       Player.refreshStats();
       System.out.println(Player.getName() + "'s stats in this order: Damage Points, Hit Points, Storage, Critical Rate, Heal, Current HP, Heal Chances");
@@ -574,6 +592,7 @@ public class Game {
       System.out.println(Player.getCurrentHP());
       System.out.println(Player.returnHealChances());
     }
+    // Displays all monsters and items in the room
     else if (commandWord.equals("viewroom")) {
       if (currentRoom.monsterPresent() || currentRoom.itemPresent()) {
         Boolean exitMenu = false;
@@ -699,6 +718,183 @@ public class Game {
         }
       }
     }
+    // Heals the player with a loop until they are either at max health or have used up all their heal chances.
+    else if(commandWord.equals("maxheal")) {
+      Integer health = 0;
+      if ((Player.returnHealChances() * Player.displayStats(4))+Player.getCurrentHP() > Player.displayStats(1)) {
+        health = Player.displayStats(1);
+      }
+      else {
+        health = (Player.returnHealChances() * Player.displayStats(4))+Player.getCurrentHP();
+      }
+      System.out.println("After this operation, " + Player.getName() + " will have " + health + "hP. Do you wish to continue?");
+      String confirm = in.nextLine();
+      int count = -1;
+      while (count < 0) {
+        if (confirm.equals("yes")) {
+          while (Player.getCurrentHP() < Player.displayStats(1) && Player.returnHealChances()>0) {
+            Player.healCharacter();
+          }
+          count = 1;
+        }
+        else if (confirm.equals("no")) {
+          System.out.println("Canceled");
+          count = 1;
+        }
+        else {
+          System.out.println("Please enter either yes or no.");
+        }
+      }
+    }
+    else if (commandWord.equals("deathfightmonster")) {
+      if (currentRoom.monsterPresent()) {
+        System.out.println(Player.getName() + " will be fighting " + currentRoom.getMonsterFromRoom(0).getName() + ".");
+        System.out.println("Monster Stats in this order: Damage Points, Hit Points, Storage, Critical Rate, Heal, Current HP");
+        for (int i = 0; i<5;i++) {
+          System.out.println(currentRoom.getMonsterFromRoom(0).displayStats(i));
+        }
+        System.out.println(currentRoom.getMonsterFromRoom(0).getCurrentHP());
+        System.out.println(Player.getName() + "'s stats in this order: Damage Points, Hit Points, Storage, Critical Rate, Heal, Current HP");
+        for (int i = 0; i<5;i++) {
+          System.out.println(Player.displayStats(i));
+        }
+        System.out.println(Player.getCurrentHP());
+        System.out.println("Do you still want to fight? yes/no");
+        int i = -1;
+        Boolean fightChoiceBool = true;
+        while (i < 0) {
+          String fightChoice = in.nextLine();
+          if (fightChoice.equals("yes")) {
+            fightChoiceBool = true;
+            i = 1;
+          }
+          else if (fightChoice.equals("no")){
+            fightChoiceBool = false;
+            i = 1;
+          }
+          else {
+            System.out.print("Please enter yes or no");
+          }
+        }
+        if (fightChoiceBool) {
+          while (Player.getCurrentHP() > 0 && !currentRoom.getMonsterFromRoom(0).getisDead()) {
+            fight(currentRoom.getMonsterFromRoom(0),Player);
+          }
+          currentRoom.removeMonsterFromRoom(0);
+        }
+        else {
+          System.out.println("You shamefully ran away.");
+        }
+      }
+      else {
+        System.out.println("You realize the monster was just a spider. You squish it. You feel better about yourself.");
+      }
+    }
+    else if (commandWord.equals("fightroom")) {
+      if (currentRoom.monsterPresent()) {
+        for (int j = 0;j<currentRoom.monsterNumbers();j++) {
+          System.out.println(Player.getName() + " will be fighting " + currentRoom.getMonsterFromRoom(j).getName() + ".");
+          System.out.println("Monster Stats in this order: Damage Points, Hit Points, Storage, Critical Rate, Heal, Current HP");
+          for (int i = 0; i<5;i++) {
+            System.out.println(currentRoom.getMonsterFromRoom(j).displayStats(i));
+          }
+        }
+        System.out.println(currentRoom.getMonsterFromRoom(0).getCurrentHP());
+        System.out.println(Player.getName() + "'s stats in this order: Damage Points, Hit Points, Storage, Critical Rate, Heal, Current HP");
+        for (int i = 0; i<5;i++) {
+          System.out.println(Player.displayStats(i));
+        }
+        System.out.println(Player.getCurrentHP());
+        System.out.println("Do you still want to fight? yes/no");
+        int i = -1;
+        Boolean fightChoiceBool = true;
+        while (i < 0) {
+          String fightChoice = in.nextLine();
+          if (fightChoice.equals("yes")) {
+            fightChoiceBool = true;
+            i = 1;
+          }
+          else if (fightChoice.equals("no")){
+            fightChoiceBool = false;
+            i = 1;
+          }
+          else {
+            System.out.print("Please enter yes or no");
+          }
+        }
+        if (fightChoiceBool) {
+          try {
+            while (Player.getCurrentHP() > 0 && !currentRoom.getMonsterFromRoom(0).getisDead()) {
+              fight(currentRoom.getMonsterFromRoom(0),Player);
+            }
+          }
+          catch (IndexOutOfBoundsException e) {
+            System.out.println("You dealt damage to all monsters at once.");
+          }
+          System.out.println("You dealt damage to all monsters at once.");
+        }
+        else {
+          System.out.println("You shamefully ran away.");
+        }
+      }
+      else {
+        System.out.println("You realize the monster was just a spider. You squish it. You feel better about yourself.");
+      }
+    }
+    else if (commandWord.equals("deathfightroom")) {
+      if (currentRoom.monsterPresent()) {
+        for (int j = 0;j<currentRoom.monsterNumbers();j++) {
+          System.out.println(Player.getName() + " will be fighting " + currentRoom.getMonsterFromRoom(j).getName() + ".");
+          System.out.println("Monster Stats in this order: Damage Points, Hit Points, Storage, Critical Rate, Heal, Current HP");
+          for (int i = 0; i<5;i++) {
+            System.out.println(currentRoom.getMonsterFromRoom(j).displayStats(i));
+          }
+        }
+        System.out.println(currentRoom.getMonsterFromRoom(0).getCurrentHP());
+        System.out.println(Player.getName() + "'s stats in this order: Damage Points, Hit Points, Storage, Critical Rate, Heal, Current HP");
+        for (int i = 0; i<5;i++) {
+          System.out.println(Player.displayStats(i));
+        }
+        System.out.println(Player.getCurrentHP());
+        System.out.println("Do you still want to fight? yes/no");
+        int i = -1;
+        Boolean fightChoiceBool = true;
+        while (i < 0) {
+          String fightChoice = in.nextLine();
+          if (fightChoice.equals("yes")) {
+            fightChoiceBool = true;
+            i = 1;
+          }
+          else if (fightChoice.equals("no")){
+            fightChoiceBool = false;
+            i = 1;
+          }
+          else {
+            System.out.print("Please enter yes or no");
+          }
+        }
+        if (fightChoiceBool) {
+          try {
+            while (Player.getCurrentHP() > 0 && currentRoom.monsterPresent()) {
+              while (Player.getCurrentHP() > 0 && !currentRoom.getMonsterFromRoom(0).getisDead()) {
+                fight(currentRoom.getMonsterFromRoom(0),Player);
+              }
+              currentRoom.removeMonsterFromRoom(0);
+            }
+          }
+          catch (IndexOutOfBoundsException e) {
+            System.out.println("You defeated all the monsters.");
+          }
+          System.out.println("You defeated all the monsters.");
+        }
+        else {
+          System.out.println("You shamefully ran away.");
+        }
+      }
+      else {
+        System.out.println("You realize the monster was just a spider. You squish it. You feel better about yourself.");
+      }
+    }
     return false;
   }
 
@@ -776,7 +972,6 @@ public class Game {
       }
       if (monster.getisDead()) {
         System.out.println(monster.getName() + " is now dead.");
-        currentRoom.removeMonsterFromRoom(0);
         for (int i = 0; i<monster.getNumberofItemsinInventory(); i++) {
           currentRoom.addItemsToInventory(monster.getItemInInventory(0));
           monster.removeItemsFromInventory(0);
