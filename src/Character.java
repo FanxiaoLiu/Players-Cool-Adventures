@@ -10,6 +10,7 @@ public class Character {
     private Integer healChances = 5;
     private Integer id = 0;
 
+    // Two constructors, one with an additional ID Value
     public Character(String characterName, int index0, int index1, int index2, int index3, int index4) {
         characterStats.add(index0);
         characterStats.add(index1);
@@ -29,6 +30,7 @@ public class Character {
         id = idValue;
     }
 
+    // Refreshes stats of a character, taking into account their inventory
     public void refreshStats() {
         characterInventoryStats.clear();
         playerInventory.overallStatBuff();
@@ -37,18 +39,22 @@ public class Character {
         }
     }
 
+    // Set beginning hP based on max hP
     public void setBeginningHP() {
         currentHP = characterInventoryStats.get(1);
     }
 
+    // Reset heal chances to beginning
     public void resetHealChances() {
         healChances = 5;
     }
 
+    // Get total heal chances left
     public Integer returnHealChances() {
         return healChances;
     }
 
+    // Use heal chance
     public void useHealChance() {
         healChances--;
     }
@@ -61,6 +67,7 @@ public class Character {
         healChances += times;
     }
 
+    // Heals character, scales based off the heal stat on the character
     public void healCharacter() {
         Integer heal = characterInventoryStats.get(4);
         if (currentHP == characterInventoryStats.get(1)) {
@@ -83,6 +90,8 @@ public class Character {
         }
     }
 
+    // Outputs damage taken
+    //If currentHP is 0, then isDead = true
     public void damageTaken(Character otherPlayer) {
         Integer damageDealt = calculateDamageDealt(otherPlayer);
         System.out.print(otherPlayer.getName() + " dealt " + name + " " + damageDealt + " of damage.");
@@ -105,6 +114,7 @@ public class Character {
         currentHP -= hP;
     }
 
+    // Calculate damage dealt, including critical damage
     private Integer calculateDamageDealt(Character otherPlayer) {
         Integer damageDealt = 0;
 
@@ -146,6 +156,7 @@ public class Character {
         return currentHP;
     }
 
+    // Edits inventory of the player
     public void addItemsToInventory(Items item) {
         playerInventory.addItemsToInventory(item);
     }
@@ -160,13 +171,6 @@ public class Character {
 
     public Integer displayStats(int index) {
         return characterInventoryStats.get(index);
-    }
-
-    public static void main(String[] args) {
-        Items swordofJustice = new Items(21, 100, "Sword of Justice", 2, 4, 7, 3, 3);
-        Items bowofJustice = new Items(15, 50, "Bow of Justice", 2, 4, 7, 3, 3);
-        Items spearofJustice = new Items(31 ,75, "Spear of Justice", 2, 4, 7, 3, 3);
-
     }
 
     public void replaceInventoryItem(int index, Items item) {

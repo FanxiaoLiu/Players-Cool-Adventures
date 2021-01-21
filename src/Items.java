@@ -14,6 +14,7 @@ public class Items {
         3           +crit
         4           +heal
     */
+    // Constructor
     public Items(Integer idNumber,Integer localWeight, String localName, Integer index0, Integer index1, Integer index2, Integer index3, Integer index4) {
         weight = localWeight;
         name = localName;
@@ -38,6 +39,8 @@ public class Items {
         name = localName;
     }
 
+    // Adds a stat buff to the item
+        // Two options, without specified index
     public void addStatBuff(Integer statBuff) {
         statBuffs.add(statBuff);
     }
