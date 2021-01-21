@@ -123,10 +123,14 @@ public class Game {
 
   /**
    * Create the game and initialise its internal map.
+   * Also creates the monsters and items and assigns them to rooms.
    */
   public Game() {
     try {
-      Player = new Character("Shtayo",200,10000,0,30,30);
+      Scanner in = new Scanner(System.in);
+      System.out.println("Please enter the name of your character.");
+      String characterName = in.nextLine();
+      Player = new Character(characterName,200,10000,0,30,30);
       Player.refreshStats();
       Player.setBeginningHP();
       giveItemsToPlayer();
@@ -141,6 +145,7 @@ public class Game {
     parser = new Parser();
   }
 
+  // Randomizes where the winning treasure is
   private void putWinTreasure() {
     Items winTreasure1 = new Items(1000, 0, "Fancy Treasure", 0,0,0,0,0);
     Items winTreasure2 = new Items(1000, 0, "Luxurious Treasure", 0,0,0,0,0);
@@ -209,6 +214,7 @@ public class Game {
     }
   }
 
+  // Reads items.dat and creates items based on that
   public void initializeItems(String fileName) {
     Scanner itemScanner;
     try {
@@ -242,6 +248,7 @@ public class Game {
     }
   }
 
+  // Given value of room, return the key, in here for testing purposes, not actually used
   public String getKeyFromValue(Room value) {
     for(Entry<String, Room> entry: masterRoomMap.entrySet()) {
       if(entry.getValue() == value) {
@@ -252,6 +259,7 @@ public class Game {
     return null;
   } 
 
+  // Returns monster in the list given a current index.
   public Character returnMonsters(int index) {
     for (int i = 0; i<monsterList.size(); i++) {
       if (index == i) {
@@ -280,6 +288,7 @@ public class Game {
     System.out.println("Thank you for playing.  Good bye.");
   }
 
+  // Sets win conditions, 
   private Boolean doesWin() {
     if (currentRoom.equals(masterRoomMap.get(keyArray.get(keyArray.size()-1)))) {
       int count = 0;
@@ -295,6 +304,9 @@ public class Game {
         System.out.println("Congratulations! You have 2/2 of the treasures you need to win! You win!");
         return true;
       }
+      else {
+        System.out.println("You have 0/2 of the treasures needed to win.");
+      }
     }
     return false;
   }
@@ -305,7 +317,9 @@ public class Game {
   private void printWelcome() {
     System.out.println();
     System.out.println("Welcome to Player's Cool Adventures!");
-    System.out.println("A new text-based adventure game.");
+    System.out.println("A new text-based adventure game where you have to gather two pieces of treasure located around the map and get it to the final location.");
+    System.out.println("You are selected by a futuristic agency to search around several locations all around the world, and some out of this world, for two pieces of treasure.");
+    System.out.println("As you go, explore and gather more weapons and items so you can defeat stronger opponents, good luck!");
     System.out.println("Type 'help' if you need help.");
     System.out.println();
     System.out.println(currentRoom.longDescription());
@@ -610,6 +624,7 @@ public class Game {
         Boolean exitMenu = false;
         while (!exitMenu) {
           if (currentRoom.monsterPresent()) {
+            System.out.println(currentRoom.longDescription());
             System.out.println("The room has " + currentRoom.monsterNumbers() + " monster(s).");
             for (int i = 0; i < currentRoom.monsterNumbers(); i++) {
               System.out.println(i + " " + currentRoom.getMonsterFromRoom(i).getName());
@@ -647,6 +662,7 @@ public class Game {
           if (currentRoom.itemPresent() && !exitMenu) {
             int count3 = -1;
             while(count3 < 0 && currentRoom.itemPresent()) {
+              System.out.println(currentRoom.longDescription());
               System.out.println("You find stuff in the room, all of which are below. Enter the index number before the item to learn more about it.");
               for (int i = 0; i<currentRoom.getNumberofItemsinInventory();i++) {
                 System.out.println(i + " " + currentRoom.getItemInInventory(i).getName());
@@ -758,6 +774,7 @@ public class Game {
         }
       }
     }
+    // Fights a monster until one side is dead
     else if (commandWord.equals("deathfightmonster")) {
       if (currentRoom.monsterPresent()) {
         System.out.println(Player.getName() + " will be fighting " + currentRoom.getMonsterFromRoom(0).getName() + ".");
@@ -805,6 +822,7 @@ public class Game {
         System.out.println("You realize the monster was just a spider. You squish it. You feel better about yourself.");
       }
     }
+    // Fights all monsters once with a single command
     else if (commandWord.equals("fightroom")) {
       if (currentRoom.monsterPresent()) {
         for (int j = 0;j<currentRoom.monsterNumbers();j++) {
@@ -856,6 +874,7 @@ public class Game {
         System.out.println("You realize the monster was just a spider. You squish it. You feel better about yourself.");
       }
     }
+    // Fights all monsters at once until one side is dead
     else if (commandWord.equals("deathfightroom")) {
       if (currentRoom.monsterPresent()) {
         for (int j = 0;j<currentRoom.monsterNumbers();j++) {
@@ -923,8 +942,8 @@ public class Game {
    * and a list of the command words.
    */
   private void printHelp() {
-    System.out.println("You are lost. You are alone. You wander");
-    System.out.println("around at Monash Uni, Peninsula Campus.");
+    System.out.println("You are lost. You are alone. You wander around in the room.");
+    System.out.println("Confused on what to do? Just explore, you'll eventually find out.");
     System.out.println();
     System.out.println("Your command words are:");
     parser.showCommands();
@@ -945,6 +964,7 @@ public class Game {
     Room nextRoom = currentRoom.nextRoom(direction);
     if (nextRoom == null)
       System.out.println("There is no door!");
+    // Can't exit if monster is not below 50% hP or dead.
     else {
       if (!currentRoom.monsterPresent()) {
         currentRoom = nextRoom;
