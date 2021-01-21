@@ -130,8 +130,8 @@ public class Game {
       Player.refreshStats();
       Player.setBeginningHP();
       giveItemsToPlayer();
-      createMonsters("Players-Cool-Adventures/data/monsters.dat");
-      initRooms("Players-Cool-Adventures/data/rooms.dat");
+      createMonsters("data/monsters.dat");
+      initRooms("data/rooms.dat");
       currentRoom = masterRoomMap.get("ROOM_1");
       putWinTreasure();
     } catch (Exception e) {
@@ -187,7 +187,7 @@ public class Game {
         monsterList.add(monster);
         monsterAssignRoom.add(assignedRoom);
       }
-      initializeItems("Players-Cool-Adventures/data/items.dat");
+      initializeItems("data/items.dat");
       int i = 0;
       int j = 0;
       while (j<monsterItemsList.size()) {
