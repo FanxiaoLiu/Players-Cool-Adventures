@@ -161,11 +161,13 @@ public class Game {
     }
   }
 
+  // Initializes player's starting items
   public void giveItemsToPlayer() {
     Items playerItem1 = new Items(11, 230, "Spear of Honor", 160, 0, 10, 30, 40);
     Player.addItemsToInventory(playerItem1);
   }
 
+  // Reads the monsters.dat file and creates monsters based on the input
   public void createMonsters(String fileName) {
     Scanner monsterScanner;
     try {
