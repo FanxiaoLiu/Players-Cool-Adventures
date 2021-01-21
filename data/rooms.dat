@@ -1,68 +1,68 @@
 Room Name: Room 1
-Room Description:  This is Room 1
+Room Description:  This is a Desert wasteland, have fun!
 Exit Rooms: S-Room 2, E-Room 3, D-Room 9, W-Death 1
 Room Name: Room 2
-Room Description:  This is Room 2
+Room Description:  This is the deep pits of a dungeon, scary eh?
 Exit Rooms: N-Room 1, S-Room 6
 Room Name: Death 1
-Room Description:  You are upstairs.
+Room Description:  You are in the home of the grim reaper. Please try not to anger it. Oops, looks like it noticed you. Good luck!
 Exit Rooms: E-Room 1
 Room Name: Room 3
-Room Description:  This is Room 3
+Room Description:  This is a normal room with lots of large monsters. After being in other places, this doesn't scare you anymore right?
 Exit Rooms: W-Room 1, E-Room 4, S-Death 2
 Room Name: Room 4
-Room Description:  This is Room 4
+Room Description:  This is a jungle.
 Exit Rooms: W-Room 3, S-Room 5, E-Treasure 1
 Room Name: Death 2
-Room Description:  This is a death room
+Room Description:  This is a the home of the Lion King. Bow before it or-. Yikes, looks like it's hungry. Guess you don't have a choice but to fight, no bowing this time.
 Exit Rooms: N-Room 3
 Room Name: Treasure 1
-Room Description:  This is a treasure room.
+Room Description:  This is a treasure room with a weak skeleton guarding it. You can beat it. Right?
 Exit Rooms: W-Room 4, S-Room 8
 Room Name: Room 5
-Room Description:  This is room 5
+Room Description:  You are in the city in the middle of the night. Don't worry, gangs and criminals are the least of your worries right now.
 Exit Rooms: N-Room 4, E-Room 8, S-Room 7
 Room Name: Room 6
-Room Description:  This is room 6
+Room Description:  This is the void. Literally nothing except the monsters you're supposed to fight. Welp, here they come!
 Exit Rooms: N-Room 2, E-TreasureGuards 1
 Room Name: Room 7
-Room Description:  This is room 7
+Room Description:  You are in an unfamiliar location. Looks like a deserted island. Don't worry though, you won't get lost, if you beat the monsters, you can always go back.
 Exit Rooms: N-Room 5, W-TreasureGuards 1
 Room Name: TreasureGuards 1
-Room Description:  This is a treasure room with guards
+Room Description:  This is a treasure room with guards. Looks like Atlantis. Careful, it seems the guards have sensed your presence and they seem mad.
 Exit Rooms: W-Room 6, E-Room 7
 Room Name: Room 8
-Room Description:  This is room 8
+Room Description:  This is the middle of a farm. Careful now, don't destroy too much, don't want the police chasing after us.
 Exit Rooms: N-Treasure 1, W-Room 5
 Room Name: Room 9
-Room Description:  This is room 9
+Room Description:  You are in a school football field. Luckily no one's playing.
 Exit Rooms: U-Room 1, W-Room 11, E-Room 12, S-Room 10
 Room Name: Room 10
-Room Description:  This is room 10
+Room Description:  This is the Rockies. You go for some sightseeing until the narrator reminds you what you're here for.
 Exit Rooms: N-Room 9, E-Death 3
 Room Name: Room 11
-Room Description:  This is room 11
+Room Description:  This is the... middle of the pacific ocean!? Looks like this will be tough.
 Exit Rooms: S-Room 13, E-Room 9
 Room Name: Room 13
-Room Description:  This is room 13
+Room Description:  This is just a simple room. Real original, creator. (I hear that sarcasm narrator :( )
 Exit Rooms: N-Room 11, W-TreasureGuards 2, S-Room 16
 Room Name: TreasureGuards 2
-Room Description:  This is another room with Guards
+Room Description:  This is another room with Guards. Here you'll find very strong treasures. Seems like this might be Heaven. Lucky you~
 Exit Rooms: E-Room 13
 Room Name: Room 16
-Room Description:  This is room 16
+Room Description:  This is the Great Wall of China. You go for some sightseeing and this time Narrator doesn't stop you. (Narrator likes it too)
 Exit Rooms: N-Room 13, E-TreasureGuards 3
 Room Name: TreasureGuards 3
-Room Description:  This is another treasure room with guards
+Room Description:  This place looks like Hell. Ah well, at least there's a cool looking weapon on the ground. But wow it's hot in here.
 Exit Rooms: W-Room 16, E-FinalRoom 1
 Room Name: Room 12
-Room Description:  This is room 12
+Room Description:  This looks like a tundra. Nothing too important here.
 Exit Rooms: W-Room 9, E-Room 14
 Room Name: Room 14
-Room Description:  This is room 14
+Room Description:  This is... Alaska? Brrrrr, it's cold, why did you have to teleport me here you ask? Narrator doesn't know, ask the Creator.
 Exit Rooms: W-Room 12, S-Room 15
 Room Name: Room 15
-Room Description:  This is room 15
+Room Description:  This is the last room before you reach the final room. Looks like something is guarding that gate huh. I'm probably strong enough to fight it though, let's give it a shot.
 Exit Rooms: N-Room 14
 Room Name: FinalRoom 1
 Room Description: This is the final room. Come here when you have the Fancy and Luxurious Treasures.
