@@ -440,7 +440,12 @@ public class Game {
         }
         if (fightChoiceBool) {
           fight(currentRoom.getMonsterFromRoom(0),Player);
-          currentRoom.removeMonsterFromRoom(0);
+          if (Player.getisDead()) {
+            return true;
+          }
+          if (currentRoom.getMonsterFromRoom(0).getisDead()) {
+            currentRoom.removeMonsterFromRoom(0);
+          }
         }
         else {
           System.out.println("You shamefully ran away.");
@@ -574,7 +579,12 @@ public class Game {
         }
         if (fightChoiceBool) {
           fight(currentRoom.getMonsterFromRoom(0),Player);
-          currentRoom.removeMonsterFromRoom(0);
+          if (Player.getisDead()) {
+            return true;
+          }
+          if (currentRoom.getMonsterFromRoom(0).getisDead()) {
+            currentRoom.removeMonsterFromRoom(0);
+          }
         }
         else {
           System.out.println("You shamefully ran away.");
@@ -781,6 +791,9 @@ public class Game {
         if (fightChoiceBool) {
           while (Player.getCurrentHP() > 0 && !currentRoom.getMonsterFromRoom(0).getisDead()) {
             fight(currentRoom.getMonsterFromRoom(0),Player);
+            if (Player.getisDead()) {
+              return true;
+            }
           }
           currentRoom.removeMonsterFromRoom(0);
         }
@@ -880,6 +893,9 @@ public class Game {
             while (Player.getCurrentHP() > 0 && currentRoom.monsterPresent()) {
               while (Player.getCurrentHP() > 0 && !currentRoom.getMonsterFromRoom(0).getisDead()) {
                 fight(currentRoom.getMonsterFromRoom(0),Player);
+                if (Player.getisDead()) {
+                  return true;
+                }
               }
               currentRoom.removeMonsterFromRoom(0);
             }
@@ -887,6 +903,7 @@ public class Game {
           catch (IndexOutOfBoundsException e) {
             System.out.println("You defeated all the monsters.");
           }
+
           System.out.println("You defeated all the monsters.");
         }
         else {
@@ -980,6 +997,9 @@ public class Game {
         }
         Player.addHealChance(5);
         System.out.println("You have gained 5 extra heals");
+      }
+      if (player.getisDead()) {
+        System.out.println("You have died.");
       }
     }
   }
