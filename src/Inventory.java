@@ -15,6 +15,8 @@ public class Inventory {
         isRoom = isRoomInventory;
     }
 
+    // Set inventory size based on stat buff
+    // If inventory is room inventory, no weight limits
     public void setInventorySize() {
         if (!isRoom) {
             inventorySize = 1000;
@@ -55,6 +57,7 @@ public class Inventory {
         return inventorySize;
     }
 
+    // Adds an item to inventory so long as it is not too heavy
     public void addItemsToInventory(Items item) {
         updateInventorySize();
         if (!isInventoryFull((getTotalItemWeight() + item.returnWeight())))
@@ -67,10 +70,12 @@ public class Inventory {
         return overallStatBuff;
     }
 
+    // Get overall stat buff of a certain stat adding all items buffs together
     public Integer getOverallStatBuff(int index) {
         return overallStatBuff.get(index);
     }
 
+    // Checks if inventory is full
     public Boolean isInventoryFull(int size) {
         if ((inventorySize - size) < 0) {
             return true;
@@ -80,6 +85,7 @@ public class Inventory {
         }
     }
 
+    // Gets the overall stat buff
     public void overallStatBuff() {
         Integer totalIndex0 = 0;
         Integer totalIndex1 = 0;
@@ -131,6 +137,7 @@ public class Inventory {
         inventoryItems.remove(index);
     }
     
+    // Replaces one item in inventory with another
     public void replaceInventoryItem(int index,Items item) {
         if (!isInventoryFull((getTotalItemWeight() + item.returnWeight()))) {
             inventoryItems.remove(index);
